@@ -1,6 +1,6 @@
 import fastapi
 from fastapi import Depends
-from modelos.validar import ValidarCriar
+from modelos.validar import ValidarAtualizar, ValidarCriar, ValidarRemover, ValidarVisualizar
 from servicos import cliente
 
 router = fastapi.APIRouter()
@@ -13,18 +13,18 @@ async def post(loc: ValidarCriar = Depends()):
 
 
 @router.put('/clientes/atualizar', tags=['atualizar'])
-async def put(loc: ValidarCriar = Depends()):
+async def put(loc: ValidarAtualizar = Depends()):
     dados = await cliente.atualizar_cliente(loc.nome, loc.email)
     return dados
 
 
 @router.get('/clientes/visualizar', tags=['visualizar'])
-async def get(loc: ValidarCriar = Depends()):
+async def get(loc: ValidarVisualizar = Depends()):
     dados = await cliente.visualizar_cliente(loc.nome, loc.email)
     return dados
 
 
 @router.delete('/clientes/remover', tags=['remover'])
-async def delete(loc: ValidarCriar = Depends()):
+async def delete(loc: ValidarRemover = Depends()):
     dados = await cliente.remover_cliente(loc.nome, loc.email)
     return dados
