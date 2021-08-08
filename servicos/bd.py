@@ -36,6 +36,10 @@ class PostgreSQL:
         except Exception as error:
             return str(error)
 
+    def consulta(self):
+        self.cursor.execute(self.query, self.valores)
+        self.registros = self.cursor.fetchall()
+
     def criar_cliente(self):
         colunas = list(self.dados_cliente)
         self.query = f'''
@@ -49,6 +53,12 @@ class PostgreSQL:
         self.query = f'''
                     UPDATE CLIENTES SET NOME=%s WHERE EMAIL=%s AND STATUS=%s;
                 '''
-        print(self.dados_cliente)
         self.valores = self.dados_cliente['nome'], self.dados_cliente['email'], self.dados_cliente['status']
         return self.update_insert()
+        
+    def visualizar_cliente(self):
+        self.query = f'''
+                    SELECT {', '.join(self.colunas)} FROM CLIENTES WHERE EMAIL=%s;
+                '''
+        self.consulta()
+        return self.registros

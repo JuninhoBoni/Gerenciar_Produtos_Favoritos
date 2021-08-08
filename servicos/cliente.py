@@ -63,10 +63,24 @@ async def atualizar_cliente(nome: str, email: str) -> dict:
     return dados
 
 
-async def visualizar_cliente(nome: str, email: str) -> dict:
-    dados = {"nome": nome,
-             "email": email,
-             }
+async def visualizar_cliente(email: str) -> dict:
+    banco_dados = bd.PostgreSQL()
+    conectar = banco_dados.conectar()
+    if conectar:
+        retorno = conectar
+        dados_cliente = {}
+    else:
+        retorno = "sucesso"
+        banco_dados.colunas = ['nome', 'email', 'status', 'chave']
+        banco_dados.valores = [email]
+        retorno_visualizar_clientes = banco_dados.visualizar_cliente()
+        dados_cliente = []
+        for retorno_visualizar_cliente in retorno_visualizar_clientes:
+            dados_cliente.append(retorno_visualizar_cliente)
+        if not len(retorno_visualizar_clientes):
+            retorno = 'sem dados'
+    dados = [{"retorno" : retorno},
+                dados_cliente]
     return dados
 
 

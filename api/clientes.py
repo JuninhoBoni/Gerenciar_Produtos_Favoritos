@@ -20,7 +20,7 @@ async def put(loc: ValidarAtualizar = Depends()):
 
 @router.get('/clientes/visualizar', tags=['visualizar'])
 async def get(loc: ValidarVisualizar = Depends()):
-    dados = await cliente.visualizar_cliente(loc.nome, loc.email)
+    dados = await cliente.visualizar_cliente(loc.email)
     return dados
 
 
