@@ -84,8 +84,21 @@ async def visualizar_cliente(email: str) -> dict:
     return dados
 
 
-async def remover_cliente(nome: str, email: str) -> dict:
-    dados = {"nome": nome,
-             "email": email,
-             }
+async def remover_cliente(email: str) -> dict:
+    banco_dados = bd.PostgreSQL()
+    conectar = banco_dados.conectar()
+    retorno = "sucesso"
+    if conectar:
+        retorno = conectar
+        dados_cliente = {}
+    
+    banco_dados.valores = [email]
+    banco_dados.remover_cliente()
+    dados_cliente = {'email' : email}
+    if banco_dados.linhas == 0:
+        # AO COMPLETAR O DESENVOLVIMENTO DO METODO visualizar_cliente 
+        # REALIZAR CONSULTA PARA IDENTIFICAR SE O E-MAIL EXISTE
+        retorno = {"status" : "E-mail não validado"}
+    dados = [{"retorno" : retorno},
+                dados_cliente]
     return dados

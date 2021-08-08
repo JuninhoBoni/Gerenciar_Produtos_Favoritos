@@ -27,8 +27,7 @@ class PostgreSQL:
             self.cursor.close()
             self.conexao.close()
             
-    def update_insert(self):
-        print(self.valores)
+    def update_insert_delete(self):
         try:
             self.cursor.execute(self.query, self.valores)
             self.conexao.commit()
@@ -47,14 +46,14 @@ class PostgreSQL:
                         VALUES(%s, %s, %s, %s);
                 '''
         self.valores = [self.dados_cliente[coluna] for coluna in colunas]
-        return self.update_insert()
+        return self.update_insert_delete()
 
     def atualizar_cliente(self):
         self.query = f'''
                     UPDATE CLIENTES SET NOME=%s WHERE EMAIL=%s AND STATUS=%s;
                 '''
         self.valores = self.dados_cliente['nome'], self.dados_cliente['email'], self.dados_cliente['status']
-        return self.update_insert()
+        return self.update_insert_delete()
         
     def visualizar_cliente(self):
         self.query = f'''
@@ -62,3 +61,9 @@ class PostgreSQL:
                 '''
         self.consulta()
         return self.registros
+        
+    def remover_cliente(self):
+        self.query = f'''
+                    DELETE FROM CLIENTES WHERE EMAIL=%s;
+                '''
+        return self.update_insert_delete()

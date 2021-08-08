@@ -26,5 +26,5 @@ async def get(loc: ValidarVisualizar = Depends()):
 
 @router.delete('/clientes/remover', tags=['remover'])
 async def delete(loc: ValidarRemover = Depends()):
-    dados = await cliente.remover_cliente(loc.nome, loc.email)
+    dados = await cliente.remover_cliente(loc.email)
     return dados
