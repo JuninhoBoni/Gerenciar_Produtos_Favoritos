@@ -26,18 +26,29 @@ class PostgreSQL:
         if self.conexao:
             self.cursor.close()
             self.conexao.close()
-    
-    def criar_cliente(self):
-        colunas = list(self.dados_cliente)
-        query = f'''
-                    INSERT INTO PUBLIC.CLIENTES
-                        ({', '.join(colunas)})
-                        VALUES(%s, %s, %s, %s);
-                '''
-        valores = [self.dados_cliente[coluna] for coluna in colunas]
-        
+            
+    def update_insert(self):
+        print(self.valores)
         try:
-            self.cursor.execute(query, valores)
+            self.cursor.execute(self.query, self.valores)
             self.conexao.commit()
+            self.linhas = self.cursor.rowcount
         except Exception as error:
             return str(error)
+
+    def criar_cliente(self):
+        colunas = list(self.dados_cliente)
+        self.query = f'''
+                    INSERT INTO CLIENTES ({', '.join(colunas)})
+                        VALUES(%s, %s, %s, %s);
+                '''
+        self.valores = [self.dados_cliente[coluna] for coluna in colunas]
+        return self.update_insert()
+
+    def atualizar_cliente(self):
+        self.query = f'''
+                    UPDATE CLIENTES SET NOME=%s WHERE EMAIL=%s AND STATUS=%s;
+                '''
+        print(self.dados_cliente)
+        self.valores = self.dados_cliente['nome'], self.dados_cliente['email'], self.dados_cliente['status']
+        return self.update_insert()

@@ -36,9 +36,30 @@ async def criar_cliente(nome: str, email: str) -> dict:
 
 
 async def atualizar_cliente(nome: str, email: str) -> dict:
-    dados = {"nome": nome,
-             "email": email,
-             }
+    banco_dados = bd.PostgreSQL()
+    dados_cliente = {
+                    'nome' : nome,
+                    'email' : email,
+                    'status' : 'A',
+                    }
+    banco_dados.dados_cliente = dados_cliente
+
+    conectar = banco_dados.conectar()
+    retorno = "sucesso"
+    if conectar:
+        retorno = conectar
+        dados_cliente = {}
+
+    banco_dados.atualizar_cliente()
+    
+    if banco_dados.linhas == 0:
+        # AO COMPLETAR O DESENVOLVIMENTO DO METODO visualizar_cliente 
+        # REALIZAR CONSULTA PARA IDENTIFICAR SE O E-MAIL EXISTE
+        retorno = {"status" : "E-mail não validado"}
+        dados_cliente = {}
+    
+    dados = [{"retorno" : retorno},
+                dados_cliente]
     return dados
 
 
