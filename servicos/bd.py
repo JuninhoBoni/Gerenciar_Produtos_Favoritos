@@ -1,69 +1,28 @@
-import psycopg2
-from psycopg2.extensions import AsIs
+import pymongo
 
 
+class MongoDB:
+    def __init__(self):
+        conexao = pymongo.MongoClient("mongodb://localhost:27017/")
+        self.database = conexao["meudatabase"]
+        self.collection = self.database["clientes"]
 
-class PostgreSQL:
-    def __init__(self) -> None:
-        self.user = "postgres"
-        self.password = "juninhoboni"
-        self.host = "127.0.0.1"
-        self.port = "5432"
-        self.database = "postgres"
-
-    def conectar(self):
-        try:
-            self.conexao = psycopg2.connect(user=self.user,
-                                               password=self.password,
-                                               host=self.host,
-                                               port=self.port,
-                                               database=self.database)
-            self.cursor = self.conexao.cursor()
-        except (Exception, psycopg2.Error) as error:
-            return f'Falha no banco de dados {error}'
-
-    def desconectar(self):
-        if self.conexao:
-            self.cursor.close()
-            self.conexao.close()
-            
-    def update_insert_delete(self):
-        try:
-            self.cursor.execute(self.query, self.valores)
-            self.conexao.commit()
-            self.linhas = self.cursor.rowcount
-        except Exception as error:
-            return str(error)
-
-    def consulta(self):
-        self.cursor.execute(self.query, self.valores)
-        self.registros = self.cursor.fetchall()
+    def contar_cliente(self):
+        self.quantidade = self.collection.count_documents(self.filtrar)
 
     def criar_cliente(self):
-        colunas = list(self.dados_cliente)
-        self.query = f'''
-                    INSERT INTO CLIENTES ({', '.join(colunas)})
-                        VALUES(%s, %s, %s, %s);
-                '''
-        self.valores = [self.dados_cliente[coluna] for coluna in colunas]
-        return self.update_insert_delete()
+        self.contar_cliente()
+        print(self.quantidade)
+        if self.quantidade == 0:
+            self.collection.insert_one(self.dicionario)
+
+    def visualizar_cliente(self):
+        self.cliente = self.collection.find_one(self.filtrar)
 
     def atualizar_cliente(self):
-        self.query = f'''
-                    UPDATE CLIENTES SET NOME=%s WHERE EMAIL=%s AND STATUS=%s;
-                '''
-        self.valores = self.dados_cliente['nome'], self.dados_cliente['email'], self.dados_cliente['status']
-        return self.update_insert_delete()
-        
-    def visualizar_cliente(self):
-        self.query = f'''
-                    SELECT {', '.join(self.colunas)} FROM CLIENTES WHERE EMAIL=%s;
-                '''
-        self.consulta()
-        return self.registros
-        
+        status = self.collection.update_one(self.filtrar, self.novovalor)
+        self.status = status.raw_result
+
     def remover_cliente(self):
-        self.query = f'''
-                    DELETE FROM CLIENTES WHERE EMAIL=%s;
-                '''
-        return self.update_insert_delete()
+        status = self.collection.delete_one(self.filtrar)
+        self.status = status.raw_result

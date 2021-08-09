@@ -1,9 +1,15 @@
 import fastapi
 from fastapi import Depends
-from modelos.validar import ValidarAtualizar, ValidarCriar, ValidarRemover, ValidarVisualizar
+from modelos.validar import ValidarAtualizar, ValidarChave, ValidarCriar, ValidarRemover, ValidarVisualizar
 from servicos import cliente
 
 router = fastapi.APIRouter()
+
+
+@router.post('/clientes/ativar', tags=['ativar'])
+async def post(loc: ValidarChave = Depends()):
+    dados = await cliente.ativar_cliente(loc.chave)
+    return dados
 
 
 @router.post('/clientes/criar', tags=['criar'])
