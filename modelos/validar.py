@@ -22,10 +22,6 @@ class ValidarFavoritos(BaseModel):
     id_produto: str
 
 
-class ValidarChave(BaseModel):
-    chave: str
-
-
 class ValidarCriar(BaseModel):
     nome: str
     email: EmailStr
