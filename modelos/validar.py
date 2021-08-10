@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from pydantic.networks import EmailStr
 from bson.objectid import ObjectId, InvalidId
+from typing import Optional
 
 
 class ObjectIdStr(str):
@@ -22,6 +23,11 @@ class ValidarFavoritos(BaseModel):
     id_produto: str
 
 
+class ValidarFavoritosGet(BaseModel):
+    id_cliente: ObjectIdStr
+    id_produto: Optional[str] = None
+
+
 class ValidarCriar(BaseModel):
     nome: str
     email: EmailStr
@@ -33,7 +39,7 @@ class ValidarAtualizar(BaseModel):
 
 
 class ValidarVisualizar(BaseModel):
-    email: str
+    email: EmailStr
 
 
 class ValidarRemover(BaseModel):

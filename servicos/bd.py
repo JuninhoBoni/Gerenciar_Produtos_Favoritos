@@ -12,9 +12,10 @@ class MongoDB:
 
     def criar_cliente(self):
         self.contar_cliente()
+        self.id_cliente = ''
         if self.quantidade == 0:
-            self.collection.insert_one(self.dicionario)
-        self.visualizar_cliente()
+            status = self.collection.insert_one(self.dicionario)
+            self.id_cliente = str(status.inserted_id)
 
     def visualizar_cliente(self):
         self.cliente = self.collection.find_one(self.filtrar)

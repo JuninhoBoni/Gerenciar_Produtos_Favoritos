@@ -1,29 +1,21 @@
 import fastapi
 import uvicorn
-from api import clientes
+from api import clientes, favoritos
 
 tags_metadata = [
     {
-        "name": "criar",
-        "description": "Inserir cliente.",
+        "name": "clientes/favoritos",
+        "description": "Gerenciamento dos Favoritos",
     },
     {
-        "name": "atualizar",
-        "description": "Atualizar dados do cliente.",
-    },
-    {
-        "name": "visualizar",
-        "description": "Mostrar cliente.",
-    },
-    {
-        "name": "remover",
-        "description": "Remover cliente.",
-    },
+        "name": "clientes",
+        "description": "Gerenciamento dos Clientes",
+    }
 ]
 
 api = fastapi.FastAPI(
-    title="Clientes - Criação, Atualização, Visualização e Remoção",
-    description="Sistema gerenciador de clientes",
+    title="Produtos Favoritos de Clientes",
+    description="Sistema gerenciador de favoritos",
     version="1.0.0",
     openapi_tags=tags_metadata,
 )
@@ -31,6 +23,7 @@ api = fastapi.FastAPI(
 
 def rotas():
     api.include_router(clientes.router)
+    api.include_router(favoritos.router)
 
 
 if __name__ == '__main__':
