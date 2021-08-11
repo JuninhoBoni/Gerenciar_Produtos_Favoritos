@@ -1,7 +1,4 @@
-try:
-    from services.validate import ValidateTokenData, ValidateUserDB
-except:
-    from app.services.validate import ValidateTokenData, ValidateUserDB
+from services.validate import ValidateTokenData, ValidateUserDB
     
 from datetime import datetime, timedelta
 from typing import Optional
