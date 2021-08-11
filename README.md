@@ -1,80 +1,12 @@
-<h1 align="center"> 
-	Gerenciador de Produtos Favoritos de Cliente
-</h1>
+# Deploying FastAPI app to Heroku
 
-<p align="center">
- <a href="#sobre-o-projeto">Sobre</a> •
- <a href="#funcionalidades">Funcionalidades</a> •
- <a href="#configurações">Configurações</a> • 
- <a href="#como-executar-o-projeto">Como executar</a> • 
- <a href="#testes">Testes</a> • 
- <a href="#tecnologias">Tecnologias</a>
-</p>
+FastAPI Tutorials
 
----
+A Simple API written using FastAPI framework, a python based framework to build production grade REST APIs.
 
-## Sobre o projeto
-
-- API REST desenvolvida com framework FastAPI para gerenciar os produtos favoritos dos clientes.
-- Possui autenticação OAuth2 com Password (e hashing), Bearer com JWT tokens
-- Documentação da autenticação está disponível:
-https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
-- A documentação da lista de produtos consumida está disponível:
-https://gist.github.com/Bgouveia/9e043a3eba439489a35e70d1b5ea08ec 
-
----
-
-## Funcionalidades
-
-- [x] Criar, atualizar, visualizar e remover Clientes
-  - Para gerenciamento do cliente, o projeto usa o e-mail como chave
-
-- [x] Lista de produtos favoritos
-  - Para gerenciamento dos produtos do cliente, o projeto usa o id do cliente como chave
-
----
-
-## Configurações
-
-- No arquivo dependencies.py está disponível as informações de autenticação.
-- Foi criado o dicionário users_db com as informações do usuário para login.
-- Para testes, a autenticação deste projeto está com os dados abaixo:
-- username: teste
-- password: secret
-- Para acessar a documentação da API, acessar:
-  127.0.0.1:8000/docs
-
----
-
-## Como executar o projeto
-
-Requisitos minimos
-- [x] Python 3.9
-
-```bash
-# Montar ambiente virtual
-$ python -m venv dist
-
-# Acessar o ambiente virtual
-$ ./dist/Scripts/activate
-
-# Instalar as bibliotecas necessárias para este projeto, executando o comando abaixo.
-$ pip install -r requirements.txt
-
-# O comando abaixo executa o programa. 
-$ ./main.py
-
-```
+The Procfile has the command to support the deployment of this Simple API to Heroku.
 
 
-## Testes
-
-- Em desenvolvimento
-
----
-
-## Tecnologias
-
-- Linguagem: python3.9
-- Framework: FastAPI
-- DB de Dados: MongoDB
+| Code 💻 | Video 📺 | Article 📝 |
+|----------|-------------|------|
+| [Deploying fastapi app to Heroku](https://github.com/windson/fastapi/tree/fastapi-deploy-heroku) | [Deploy FastAPI on Heroku in just 6 minutes](http://bit.ly/3aO1g35) | [Create and Deploy FastAPI app to Heroku](http://bit.ly/2RD68jM) |
