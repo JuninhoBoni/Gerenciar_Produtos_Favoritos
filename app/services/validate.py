@@ -32,11 +32,6 @@ class ValidateUser(BaseModel):
     username: str
 
 
-class ValidateOAuth2PasswordRequestForm(BaseModel):
-    username: str = Form(...)
-    password: str = Form(...)
-
-
 class ValidateUserDB(ValidateUser):
     hashed_password: str
 

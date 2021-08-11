@@ -1,4 +1,5 @@
-from services.validate import ValidateToken, ValidateOAuth2PasswordRequestForm
+from fastapi.security.oauth2 import OAuth2PasswordRequestForm
+from app.services.validate import ValidateToken
 import uvicorn
 from datetime import timedelta
 from fastapi import Depends, HTTPException, status
@@ -32,7 +33,7 @@ app = FastAPI(
 
 
 @app.post("/token", response_model=ValidateToken, tags=['token'])
-async def login_for_access_token(form_data: ValidateOAuth2PasswordRequestForm = Depends()):
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(
         fake_users_db, form_data.username, form_data.password)
     if not user:
