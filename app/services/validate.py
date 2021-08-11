@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from pydantic.networks import EmailStr
 from bson.objectid import ObjectId, InvalidId
 from typing import Optional
+from fastapi.param_functions import Form
 
 
 class ObjectIdStr(str):
@@ -29,6 +30,11 @@ class ValidateTokenData(BaseModel):
 
 class ValidateUser(BaseModel):
     username: str
+
+
+class ValidateOAuth2PasswordRequestForm(BaseModel):
+    username: str = Form(...)
+    password: str = Form(...)
 
 
 class ValidateUserDB(ValidateUser):
