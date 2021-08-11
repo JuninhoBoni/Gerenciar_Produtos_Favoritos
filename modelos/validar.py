@@ -18,6 +18,23 @@ class ObjectIdStr(str):
         return ObjectId(str(v))
 
 
+class ValidarToken(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class ValidarTokenData(BaseModel):
+    username: Optional[str] = None
+
+
+class ValidarUsuario(BaseModel):
+    username: str
+
+
+class ValidarUsuarioBanco(ValidarUsuario):
+    hashed_password: str
+
+
 class ValidarFavoritos(BaseModel):
     id_cliente: ObjectIdStr
     id_produto: str

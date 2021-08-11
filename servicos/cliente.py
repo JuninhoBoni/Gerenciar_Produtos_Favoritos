@@ -30,9 +30,9 @@ async def atualizar_cliente(nome: str, email: str) -> dict:
     banco_dados.novovalor = {'$set': {'nome': nome}}
     banco_dados.atualizar_cliente()
     msg = {
-            "message": f"Email {email} cadastrado",
-            "code": "sucesso"
-        }
+        "message": f"Email {email} cadastrado",
+        "code": "sucesso"
+    }
 
     if not (banco_dados.status['updatedExisting']):
         msg = {

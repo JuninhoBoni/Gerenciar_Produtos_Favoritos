@@ -6,7 +6,7 @@ async def favoritos_cliente_delete(id_cliente: str, id_produto: str) -> dict:
     banco_dados = bd.MongoDB()
     banco_dados.filtrar = {'_id': id_cliente}
     banco_dados.visualizar_cliente()
-    
+
     if not banco_dados.cliente:
         msg = {
             "error_message": f"Não existe o cliente {id_cliente}",
@@ -36,17 +36,16 @@ async def favoritos_cliente_post(id_cliente: str, id_produto: str) -> dict:
     banco_dados = bd.MongoDB()
     banco_dados.filtrar = {'_id': id_cliente}
     banco_dados.visualizar_cliente()
-    
+
     produto = requests.get(
-                f'http://challenge-api.luizalabs.com/api/product/{id_produto}/').json()
-    
+        f'http://challenge-api.luizalabs.com/api/product/{id_produto}/').json()
+
     if 'id' not in produto:
         msg = {
             "error_message": f"Não existe o produto {id_produto}",
             "code": "erro"
         }
         return msg
-
 
     if not banco_dados.cliente:
         msg = {
@@ -99,7 +98,7 @@ async def favoritos_cliente_get(id_cliente: str, id_produto: str) -> dict:
         for id_produto in banco_dados.cliente['favoritos']:
             produto = requests.get(
                 f'http://challenge-api.luizalabs.com/api/product/{id_produto}/').json()
-            
+
             if 'id' not in produto:
                 await favoritos_cliente_delete(id_cliente, id_produto)
                 continue
@@ -110,7 +109,7 @@ async def favoritos_cliente_get(id_cliente: str, id_produto: str) -> dict:
             else:
                 favoritos.append({'id': produto['id'], 'title': produto['title'],
                                  'image': produto['image'], 'price': produto['price']})
-        
+
         msg = {
             "id_cliente": str(banco_dados.cliente['_id']),
             "favoritos": favoritos,
