@@ -15,11 +15,11 @@
 
 ## Sobre o projeto
 
-API REST desenvolvida com framework FastAPI para gerenciar os produtos favoritos dos clientes.
-Possui autenticação OAuth2 com Password (e hashing), Bearer com JWT tokens
-Documentação da autenticação está disponível:
+- API REST desenvolvida com framework FastAPI para gerenciar os produtos favoritos dos clientes.
+- Possui autenticação OAuth2 com Password (e hashing), Bearer com JWT tokens
+- Documentação da autenticação está disponível:
 https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
-A documentação da lista de produtos consumida está disponível:
+- A documentação da lista de produtos consumida está disponível:
 https://gist.github.com/Bgouveia/9e043a3eba439489a35e70d1b5ea08ec 
 
 ---
@@ -36,11 +36,13 @@ https://gist.github.com/Bgouveia/9e043a3eba439489a35e70d1b5ea08ec
 
 ## Configurações
 
-No arquivo dependencies.py está disponível as informações de autenticação.
-Foi criado o dicionário users_db com as informações do usuário para login.
-Para testes, a autenticação deste projeto está com os dados abaixo:
-username: teste
-password: secret
+- No arquivo dependencies.py está disponível as informações de autenticação.
+- Foi criado o dicionário users_db com as informações do usuário para login.
+- Para testes, a autenticação deste projeto está com os dados abaixo:
+- username: teste
+- password: secret
+- Para acessar a documentação da API, acessar:
+  127.0.0.1:8000/docs
 
 ---
 
@@ -64,9 +66,6 @@ $ ./main.py
 
 ```
 
-Atenção desenvolvedor, caso haja alterações de libs, atualizar o arquivo requirements.txt
-
----
 
 ## Testes
 
