@@ -1,6 +1,6 @@
-from modelos.validar import ValidarToken, ValidarTokenData, ValidarUsuarioBanco
+from services.validate import ValidateToken, ValidateTokenData, ValidateUserDB
 import uvicorn
-from app import clientes
+from routers import clients
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -29,12 +29,12 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 tags_metadata = [
     {
-        "name": "clientes/favoritos",
+        "name": "clients/favorites",
         "description": "Gerenciamento dos Favoritos",
     },
     {
-        "name": "clientes",
-        "description": "Gerenciamento dos Clientes",
+        "name": "clients",
+        "description": "Gerenciamento dos Clients",
     },
     {
         "name": "token",
@@ -43,8 +43,8 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title="Produtos Favoritos de Clientes",
-    description="Sistema gerenciador de favoritos",
+    title="Produtos Favoritos de Clients",
+    description="Sistema gerenciador de favorites",
     version="1.0.0",
     openapi_tags=tags_metadata,
 )
@@ -61,7 +61,7 @@ def get_password_hash(password):
 def get_user(db, username: str):
     if username in db:
         user_dict = db[username]
-        return ValidarUsuarioBanco(**user_dict)
+        return ValidateUserDB(**user_dict)
 
 
 def authenticate_user(fake_db, username: str, password: str):
@@ -95,7 +95,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        token_data = ValidarTokenData(username=username)
+        token_data = ValidateTokenData(username=username)
     except JWTError:
         raise credentials_exception
     user = get_user(fake_users_db, username=token_data.username)
@@ -104,7 +104,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     return user
 
 
-@app.post("/token", response_model=ValidarToken)
+@app.post("/token", response_model=ValidateToken)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(
         fake_users_db, form_data.username, form_data.password)
@@ -122,7 +122,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 
 def rotas():
-    app.include_router(clientes.router)
+    app.include_router(clients.router)
 
 
 if __name__ == '__main__':

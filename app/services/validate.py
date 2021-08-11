@@ -14,50 +14,50 @@ class ObjectIdStr(str):
         try:
             ObjectId(str(v))
         except InvalidId as e:
-            raise ValueError(f'Não é um ObjectId válido - Erro: {e}')
+            raise ValueError(f'{e}')
         return ObjectId(str(v))
 
 
-class ValidarToken(BaseModel):
+class ValidateToken(BaseModel):
     access_token: str
     token_type: str
 
 
-class ValidarTokenData(BaseModel):
+class ValidateTokenData(BaseModel):
     username: Optional[str] = None
 
 
-class ValidarUsuario(BaseModel):
+class ValidateUser(BaseModel):
     username: str
 
 
-class ValidarUsuarioBanco(ValidarUsuario):
+class ValidateUserDB(ValidateUser):
     hashed_password: str
 
 
-class ValidarFavoritos(BaseModel):
-    id_cliente: ObjectIdStr
-    id_produto: str
+class ValidateFavorites(BaseModel):
+    id_client: ObjectIdStr
+    id_product: str
 
 
-class ValidarFavoritosGet(BaseModel):
-    id_cliente: ObjectIdStr
-    id_produto: Optional[str] = None
+class ValidateFavoritesGet(BaseModel):
+    id_client: ObjectIdStr
+    id_product: Optional[str] = None
 
 
-class ValidarCriar(BaseModel):
-    nome: str
+class ValidateCreate(BaseModel):
+    name: str
     email: EmailStr
 
 
-class ValidarAtualizar(BaseModel):
-    nome: str
+class ValidateUpdate(BaseModel):
+    name: str
     email: EmailStr
 
 
-class ValidarVisualizar(BaseModel):
+class ValidateView(BaseModel):
     email: EmailStr
 
 
-class ValidarRemover(BaseModel):
+class ValidateRemove(BaseModel):
     email: EmailStr
