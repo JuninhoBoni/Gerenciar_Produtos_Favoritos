@@ -1,4 +1,8 @@
-from services import database as bd
+try:
+    from services import database as bd
+except:
+    from app.services import database as bd
+
 import requests
 
 

@@ -1,7 +1,13 @@
-from services.validate import ValidateUpdate, ValidateCreate, ValidateRemove, ValidateView
-from dependencies import get_current_user
+try:
+    from services.validate import ValidateUpdate, ValidateCreate, ValidateRemove, ValidateView
+    from dependencies import get_current_user
+    from services import client
+except:
+    from app.services.validate import ValidateUpdate, ValidateCreate, ValidateRemove, ValidateView
+    from app.dependencies import get_current_user
+    from app.services import client
+    
 from fastapi import APIRouter, Depends, HTTPException
-from services import client
 
 
 router = APIRouter(prefix="/clients",

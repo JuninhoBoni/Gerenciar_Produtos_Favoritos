@@ -1,6 +1,11 @@
-from services.validate import ValidateToken
-from routers import clients, favorites
-from dependencies import users_db, authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
+try:
+    from services.validate import ValidateToken, ValidateUser
+    from routers import clients, favorites
+    from dependencies import users_db, authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, get_current_user
+except:
+    from app.services.validate import ValidateToken, ValidateUser
+    from app.routers import clients, favorites
+    from app.dependencies import users_db, authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, get_current_user
 
 import uvicorn
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
@@ -30,9 +35,14 @@ app = FastAPI(
     openapi_tags=tags_metadata,
 )
 
+@app.get("/")
+async def read_main(current_user: ValidateUser = Depends(get_current_user)):
+    return {"msg": "Hello World"}
+
 
 @app.post("/token", response_model=ValidateToken, tags=['token'])
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    print(form_data)
     user = authenticate_user(
         users_db, form_data.username, form_data.password)
     if not user:
@@ -46,7 +56,6 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
-
 
 def rotas():
     app.include_router(clients.router)
