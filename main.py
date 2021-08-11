@@ -1,13 +1,7 @@
-try:
-    from services.validate import ValidateToken, ValidateUser
-    from routers import clients, favorites
-    from dependencies import users_db, authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, get_current_user
-except:
-    from app.services.validate import ValidateToken, ValidateUser
-    from app.routers import clients, favorites
-    from app.dependencies import users_db, authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, get_current_user
+from services.validate import ValidateToken
+from routers import clients, favorites
+from dependencies import users_db, authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, get_current_user
 
-import uvicorn
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from datetime import timedelta
 from fastapi import Depends, HTTPException, status, FastAPI
@@ -36,7 +30,8 @@ app = FastAPI(
 )
 
 @app.get("/")
-async def read_main(current_user: ValidateUser = Depends(get_current_user)):
+async def read_main():
+#async def read_main(current_user: ValidateUser = Depends(get_current_user)):
     return {"msg": "Hello World"}
 
 
@@ -61,7 +56,3 @@ def rotas():
     app.include_router(clients.router)
     app.include_router(favorites.router)
 
-
-if __name__ == '__main__':
-    rotas()
-    uvicorn.run(app, port=8000, host='0.0.0.0')
