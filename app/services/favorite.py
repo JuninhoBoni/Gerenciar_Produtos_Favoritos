@@ -87,7 +87,7 @@ async def favorites_client_get(id_client: str, id_product: str) -> dict:
         data_base.client['favorites'] = [id_product]
     elif id_product is not None:
         msg = {
-            "error_message": f"The product {id_product} does not exist fot the client {id_client}",
+            "error_message": f"The product {id_product} does not exist for the client {id_client}",
             "code": "error"
         }
         return msg
