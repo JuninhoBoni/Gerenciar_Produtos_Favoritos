@@ -1,6 +1,12 @@
-from services.validate import ValidateFavorites, ValidateFavoritesGet
-from dependencies import get_current_user
-from services import favorite
+try:
+    from services.validate import ValidateFavorites, ValidateFavoritesGet
+    from dependencies import get_current_user
+    from services import favorite
+except:
+    from app.services.validate import ValidateFavorites, ValidateFavoritesGet
+    from app.dependencies import get_current_user
+    from app.services import favorite
+
 from fastapi import APIRouter, Depends, HTTPException
 
 

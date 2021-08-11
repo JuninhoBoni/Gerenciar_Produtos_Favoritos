@@ -1,5 +1,7 @@
-from services import database as bd
-
+try:
+    from services import database as bd
+except:
+    from app.services import database as bd
 
 async def create_client(name: str, email: str) -> dict:
     data_base = bd.MongoDB()
