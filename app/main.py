@@ -1,12 +1,11 @@
-from fastapi.security.oauth2 import OAuth2PasswordRequestForm
-from app.services.validate import ValidateToken
-import uvicorn
-from datetime import timedelta
-from fastapi import Depends, HTTPException, status
+from services.validate import ValidateToken
 from routers import clients, favorites
-from fastapi import FastAPI
-from dependencies import fake_users_db, authenticate_user, create_access_token
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+from dependencies import users_db, authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
+
+import uvicorn
+from fastapi.security.oauth2 import OAuth2PasswordRequestForm
+from datetime import timedelta
+from fastapi import Depends, HTTPException, status, FastAPI
 
 tags_metadata = [
     {
@@ -35,7 +34,7 @@ app = FastAPI(
 @app.post("/token", response_model=ValidateToken, tags=['token'])
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(
-        fake_users_db, form_data.username, form_data.password)
+        users_db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

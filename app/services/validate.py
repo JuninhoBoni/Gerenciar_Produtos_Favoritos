@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from pydantic.networks import EmailStr
 from bson.objectid import ObjectId, InvalidId
 from typing import Optional
-from fastapi.param_functions import Form
 
 
 class ObjectIdStr(str):

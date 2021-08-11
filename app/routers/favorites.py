@@ -1,7 +1,7 @@
 from services.validate import ValidateFavorites, ValidateFavoritesGet
 from dependencies import get_current_user
-from fastapi import APIRouter, Depends, HTTPException
 from services import favorite
+from fastapi import APIRouter, Depends, HTTPException
 
 
 router = APIRouter(prefix="/clients",
