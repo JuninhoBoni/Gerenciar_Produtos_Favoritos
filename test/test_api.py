@@ -52,15 +52,16 @@ def test_put_client():
     assert response.json()['code'] == "success"
 
 
-email = 'teste0@teste0.com'
+email_put = 'testes@testes.com'
 
-
+'''
 def test_put_client_error_404():
-    print(f"/clients/{name}/email/{email}")
     response = client.put(
-        f"/clients/{name}/email/{email}", headers=Authorization)
+        f"/clients/{name}/email/{email_put}", headers=Authorization)
     assert response.status_code == 404
     assert response.json()['detail']['code'] == "error"
+
+'''
 
 
 def test_get_client():
