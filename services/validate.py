@@ -27,6 +27,11 @@ class ValidateTokenData(BaseModel):
     username: Optional[str] = None
 
 
+class ValidateGenerateToken(BaseModel):
+    username: str
+    password: str
+
+
 class ValidateUser(BaseModel):
     username: str
 
