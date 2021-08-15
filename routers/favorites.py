@@ -2,7 +2,7 @@ from services.validate import ValidateFavorites, ValidateFavoritesGet
 from dependencies import get_current_user
 from services import favorite
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 
 
 router = APIRouter(prefix="/clients",
@@ -16,7 +16,10 @@ router = APIRouter(prefix="/clients",
 async def favorites(loc: ValidateFavorites = Depends()):
     data_return = await favorite.favorites_client_post(loc.id_client, loc.id_product)
     if data_return['code'] == 'erro':
-        raise HTTPException(status_code=404, detail=data_return)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=data_return,
+        )
     return data_return
 
 
@@ -24,7 +27,10 @@ async def favorites(loc: ValidateFavorites = Depends()):
 async def favorites(loc: ValidateFavorites = Depends()):
     data_return = await favorite.favorites_client_delete(loc.id_client, loc.id_product)
     if data_return['code'] == 'erro':
-        raise HTTPException(status_code=404, detail=data_return)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=data_return,
+        )
     return data_return
 
 
@@ -32,5 +38,8 @@ async def favorites(loc: ValidateFavorites = Depends()):
 async def favorites(loc: ValidateFavoritesGet = Depends()):
     data_return = await favorite.favorites_client_get(loc.id_client, loc.id_product)
     if data_return['code'] == 'erro':
-        raise HTTPException(status_code=404, detail=data_return)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=data_return,
+        )
     return data_return
