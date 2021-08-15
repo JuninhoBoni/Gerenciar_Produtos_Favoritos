@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from ..services.validate import ValidateToken
 
-from ..main import app
+from main import app
 
 client = TestClient(app)
 
