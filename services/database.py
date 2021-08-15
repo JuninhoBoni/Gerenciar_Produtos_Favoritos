@@ -1,11 +1,11 @@
 import pymongo
+import os
 
 
 class MongoDB:
     def __init__(self):
         conn = pymongo.MongoClient(
-            "mongodb+srv://gerenciador_favoritos:8Z5Hxa1yuzmo4X3w@cluster0.8na2s.mongodb.net/database?retryWrites=true&w=majority")
-        #conn = pymongo.MongoClient("mongodb://localhost:27017/")
+            f"mongodb+srv://favoritos-clientes:{os.environ['MONGO_PASS']}@cluster0.8na2s.mongodb.net/database?retryWrites=true&w=majority")
         database = conn["database"]
         self.collection = database["client_favorites"]
 
