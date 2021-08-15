@@ -13,6 +13,10 @@
 
 ---
 
+https://favoritos-clientes.herokuapp.com/docs/
+
+---
+
 ## Sobre o projeto
 
 - API REST desenvolvida com framework FastAPI para gerenciar os produtos favoritos dos clientes.
@@ -21,7 +25,8 @@
 https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
 - A documentação da lista de produtos consumida está disponível:
 https://gist.github.com/Bgouveia/9e043a3eba439489a35e70d1b5ea08ec 
-
+- Acesse o link abaixo para acessar a documentação da API:
+https://favoritos-clientes.herokuapp.com/docs/
 ---
 
 ## Funcionalidades
@@ -43,6 +48,7 @@ https://gist.github.com/Bgouveia/9e043a3eba439489a35e70d1b5ea08ec
 - password: secret
 - Para acessar a documentação da API, acessar:
   127.0.0.1:8000/docs
+- SECRET_KEY e MONGO_PASS são variáveis de ambiente.
 
 ---
 
