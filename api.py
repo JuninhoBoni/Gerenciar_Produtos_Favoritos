@@ -1,5 +1,5 @@
 from services.validate import ValidateToken
-from routers import clients, favorites
+from routers import clients, favorites, token
 from dependencies import users_db, authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, get_current_user
 
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
@@ -31,6 +31,7 @@ app = FastAPI(
 
 app.include_router(clients.router)
 app.include_router(favorites.router)
+app.include_router(token.router)
 
 @app.get("/")
 async def read_main():
