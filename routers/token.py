@@ -5,19 +5,19 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 
 
-router = APIRouter(prefix="/token2",
-                   tags=['token2'],
+router = APIRouter(prefix="/token",
+                   tags=['token'],
                    responses={404: {"description": "Not found"}},
                    )
 
 
-@router.post('/', tags=['token2'])
+@router.post('/', tags=['token'])
 async def login_for_access_token(loc: ValidateGenerateToken = Depends()):
     user = authenticate_user(
         users_db, loc.username, loc.password)
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
+            status_code=status.HTTP_404_NOT_FOUND,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
