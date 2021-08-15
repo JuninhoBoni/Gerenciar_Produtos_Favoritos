@@ -19,6 +19,7 @@ async def create(loc: ValidateCreate = Depends()):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=data_return,
+            status=status
         )
     return data_return
 
