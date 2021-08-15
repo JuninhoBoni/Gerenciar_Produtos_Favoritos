@@ -1,11 +1,13 @@
 import pymongo
+import os
 
 
 class MongoDB:
     def __init__(self):
-        conn = pymongo.MongoClient("mongodb://localhost:27017/")
-        self.database = conn["database"]
-        self.collection = self.database["client_favorites"]
+        conn = pymongo.MongoClient(
+            f"mongodb+srv://favoritos-clientes:{os.environ['MONGO_PASS']}@cluster0.8na2s.mongodb.net/database?retryWrites=true&w=majority")
+        database = conn["database"]
+        self.collection = database["client_favorites"]
 
     def count_client(self):
         self.quantidade = self.collection.count_documents(self.filter)
