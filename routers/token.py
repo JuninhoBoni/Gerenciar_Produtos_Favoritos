@@ -29,7 +29,7 @@ async def login_for_access_token(loc: ValidateGenerateToken = Depends()):
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.post("/tokenauth", response_model=ValidateToken, include_in_schema=False)
+@router.post("/authenticate", response_model=ValidateToken, include_in_schema=False)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     print(form_data)
     user = authenticate_user(
