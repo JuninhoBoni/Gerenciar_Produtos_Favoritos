@@ -20,7 +20,11 @@ async def create(loc: ValidateCreate = Depends()):
             status_code=status.HTTP_404_NOT_FOUND,
             detail=data_return,
         )
-    return data_return
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=data_return,
+        )
 
 
 @router.put('/{name}/email/{email}', tags=['clients'])
