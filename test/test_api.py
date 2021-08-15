@@ -30,3 +30,10 @@ def test_post_client():
         f"/clients/?name={name}&email={email}", headers = Authorization)
     assert response.status_code == 200
     assert response.json()['code'] == "success"
+
+def test_post_client_error_404():
+    print(Authorization)
+    response = client.post(
+        f"/clients/?name={name}&email={email}", headers = Authorization)
+    assert response.status_code == 404
+    assert response.json()['detail']['code'] == "error"
