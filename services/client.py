@@ -19,7 +19,7 @@ async def create_client(name: str, email: str) -> dict:
             "error_message": f"Email {email} already registered",
             "code": "error"
         }
-
+    
     return msg
 
 
@@ -76,7 +76,7 @@ async def remove_client(email: str) -> dict:
     else:
         msg = {
             "message": f"Email {email} successfully removed",
-            "code": "error"
+            "code": "success"
         }
 
     return msg

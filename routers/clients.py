@@ -2,7 +2,7 @@ from services.validate import ValidateUpdate, ValidateCreate, ValidateRemove, Va
 from dependencies import get_current_user
 from services import client
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException
 
 
 router = APIRouter(prefix="/clients",
@@ -16,10 +16,7 @@ router = APIRouter(prefix="/clients",
 async def create(loc: ValidateCreate = Depends()):
     data_return = await client.create_client(loc.name, loc.email)
     if data_return['code'] == 'erro':
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=data_return,
-        )
+        raise HTTPException(status_code=404, detail=data_return)
     return data_return
 
 
@@ -27,10 +24,7 @@ async def create(loc: ValidateCreate = Depends()):
 async def update(loc: ValidateUpdate = Depends()):
     data_return = await client.update_client(loc.name, loc.email)
     if data_return['code'] == 'erro':
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=data_return,
-        )
+        raise HTTPException(status_code=404, detail=data_return)
     return data_return
 
 
@@ -38,10 +32,7 @@ async def update(loc: ValidateUpdate = Depends()):
 async def view(loc: ValidateView = Depends()):
     data_return = await client.view_client(loc.email)
     if data_return['code'] == 'erro':
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=data_return,
-        )
+        raise HTTPException(status_code=404, detail=data_return)
     return data_return
 
 
@@ -49,8 +40,5 @@ async def view(loc: ValidateView = Depends()):
 async def remove(loc: ValidateRemove = Depends()):
     data_return = await client.remove_client(loc.email)
     if data_return['code'] == 'erro':
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=data_return,
-        )
+        raise HTTPException(status_code=404, detail=data_return)
     return data_return
