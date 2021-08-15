@@ -75,7 +75,20 @@ $ ./main.py
 
 ## Testes
 
-- Em desenvolvimento
+```bash
+# Montar ambiente virtual
+$ python -m venv dist
+
+# Acessar o ambiente virtual
+$ ./dist/Scripts/activate
+
+# Instalar as bibliotecas necessárias para este projeto, executando o comando abaixo.
+$ pip install -r requirements.txt
+
+# Para testar a API, utilize o comando abaixo. 
+$ pytest -rP
+
+```
 
 ---
 

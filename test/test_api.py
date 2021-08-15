@@ -16,7 +16,7 @@ Authorization = {
 def test_index():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"msg": "Este projeto não contém front-end"}
+    assert response.json() == {"msg": "Acesse https://favoritos-clientes.herokuapp.com/docs para ver a documentação desta API"}
 
 
 def test_request_token():

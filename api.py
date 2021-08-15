@@ -21,7 +21,7 @@ tags_metadata = [
 app = FastAPI(
     title="Produtos Favoritos de Clientes",
     description="Sistema gerenciador de favoritos",
-    version="1.0.0",
+    version="1.1.0",
     openapi_tags=tags_metadata,
 )
 
@@ -29,6 +29,6 @@ app.include_router(clients.router)
 app.include_router(favorites.router)
 app.include_router(token.router)
 
-@app.get("/")
+@app.get("/", include_in_schema=False)
 async def read_main():
-    return {"msg": "Este projeto não contém front-end"}
+    return {"msg": "Acesse https://favoritos-clientes.herokuapp.com/docs para ver a documentação desta API"}
